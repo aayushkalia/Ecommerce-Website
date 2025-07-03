@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Account - E-Commerce Demo</title>
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/content.css" />
+</head>
+<body>
+    <div id="1"></div>
+    <script>
+        load("header.html");
+        function load(url)
+        {
+            req = new XMLHttpRequest();
+            req.open("GET", url, false);
+            req.send(null);
+            document.getElementById(1).innerHTML = req.responseText;
+        }
+    </script>
+
+
+    <main style="padding: 80px 20px 20px 20px; max-width: 600px; margin: auto; font-family: 'Lato', sans-serif;">
+        <h1>My Account</h1>
+        <section style="border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #f9f9f9;">
+            <h2>Profile Information</h2>
+            <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+            <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
+            <p><strong>Member Since:</strong> January 2023</p>
+        </section>
+        <section style="margin-top: 30px; border: 1px solid #ccc; padding: 20px; border-radius: 8px; background-color: #f9f9f9;">
+            <h2>Order History</h2>
+            <p>You have no orders yet.</p>
+        </section>
+        <section style="margin-top: 30px;">
+            <a href="cart.html" style="font-weight: bold; font-size: 18px; text-decoration: none; color: #333;">
+                <i class="fas fa-shopping-cart"></i> View Cart
+            </a>
+        </section>
+    </main>
+
+
+    <script>
+        // Redirect to signin if no user is signed in
+        const userNameSpan = document.getElementById('userName');
+        const userEmailSpan = document.getElementById('userEmail');
+        const username = localStorage.getItem('username');
+        if (!username) {
+            window.location.href = 'signin.html';
+        } else {
+            userNameSpan.textContent = username;
+            // For demo, generate email from username
+            userEmailSpan.textContent = username.toLowerCase().replace(/\s+/g, '') + '@example.com';
+        }
+    </script>
+
+
+
+</body>
+</html>

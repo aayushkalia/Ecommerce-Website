@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> HEADER | E-COMMERCE WEBSITE </title>
+    <!-- favicon -->
+    <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
+    <!-- EXTERNAL LINKS -->
+    <link rel="stylesheet" href="css/header.css">
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header>
+        <section>
+            <!-- MAIN CONTAINER -->
+            <div id="container">
+                <!-- SHOP NAME -->
+                <div id="shopName"><a href="index.html"> <b>SHOP</b>LANE </a></div>
+                    <!-- COLLCETIONS ON WEBSITE -->
+                    <div id="collection">
+                    </div>
+                    <!-- SEARCH SECTION -->
+                    <div id="search">
+                        <i class="fas fa-search search"></i>
+                        <input type="text" id="input" name="searchBox" placeholder="Search for Clothing and Accessories">
+                    </div>
+                    <!-- USER SECTION (CART AND USER ICON) -->
+                    <div id="user">
+                        <a href="cart.html" class="userLink"><i class="fas fa-shopping-cart addedToCart"></i> Cart <div id="badge"> 0 </div></a>
+                        <a href="account.html" class="userLink">Account</a>
+                        <a href="signin.html" class="userLink">Sign In/Out</a>
+                    </div>
+            </div>
+
+
+        </section>
+    </header>
+
+<script>
+    // Update user icon link and sign in/out text based on sign-in state
+    document.addEventListener('DOMContentLoaded', function () {
+        const username = localStorage.getItem('username');
+        const userIconLink = document.querySelector('#user a[href="signin.html"] i.userIcon').parentElement;
+        const signInOutLink = Array.from(document.querySelectorAll('#user a.userLink')).find(a => a.textContent.includes('Sign In/Out'));
+
+        if (username) {
+            // User is signed in
+            if (userIconLink) {
+                userIconLink.href = 'account.html';
+                userIconLink.title = 'Account (' + username + ')';
+            }
+            if (signInOutLink) {
+                signInOutLink.textContent = 'Sign Out';
+                signInOutLink.href = '#';
+                signInOutLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem('username');
+                    alert('You have been signed out.');
+                    window.location.href = 'signin.html';
+                });
+            }
+        } else {
+            // User is not signed in
+            if (userIconLink) {
+                userIconLink.href = 'signin.html';
+                userIconLink.title = 'Sign In';
+            }
+            if (signInOutLink) {
+                signInOutLink.textContent = 'Sign In';
+                signInOutLink.href = 'signin.html';
+                signInOutLink.removeEventListener('click', function () {});
+            }
+        }
+    });
+</script>
+
+<script>
+    window.onload = function () {
+        const searchInput = document.getElementById('input');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        console.log('Search for: ' + query);
+                        // Here you can implement actual search or redirect to search results page
+                    }
+                }
+            });
+        } else {
+            console.error('Search input element not found');
+        }
+    };
+</script>
+</body>
+</html>

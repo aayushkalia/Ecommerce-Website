@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payment Demo - E-Commerce Demo</title>
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/content.css" />
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <header>
+        <section>
+            <div id="container">
+                <div id="shopName"><a href="index.html"><b>SHOP</b>LANE</a></div>
+                <div id="collection">
+                    <div id="clothing"><a href="clothing.html">CLOTHING</a></div>
+                    <div id="accessories"><a href="accessories.html">ACCESSORIES</a></div>
+                </div>
+                <div id="search">
+                    <input type="text" id="input" name="searchBox" placeholder="Search for Clothing and Accessories" />
+                </div>
+                <div id="user">
+                    <a href="cart.html"><i class="fas fa-shopping-cart addedToCart"><div id="badge">0</div></i></a>
+                    <a href="signin.html"><i class="fas fa-user-circle userIcon"></i></a>
+                    <a href="account.html" class="userLink">Account</a>
+                    <a href="signin.html" class="userLink">Sign In/Out</a>
+                    <a href="payment.html" class="userLink">Payment Demo</a>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <main style="padding: 20px;">
+        <h1>Razorpay Payment Demo</h1>
+        <p>This is a demo payment page using Razorpay checkout.</p>
+        <button id="payButton">Pay ₹100</button>
+        <p id="paymentStatus"></p>
+    </main>
+
+    <script>
+        const payButton = document.getElementById('payButton');
+        const paymentStatus = document.getElementById('paymentStatus');
+
+        payButton.addEventListener('click', function () {
+            var options = {
+                "key": "rzp_test_1DP5mmOlF5G5ag", // Razorpay test key
+                "amount": 10000, // Amount in paise (₹100)
+                "currency": "INR",
+                "name": "SHOPLANE Demo",
+                "description": "Test Transaction",
+                "handler": function (response) {
+                    paymentStatus.textContent = "Payment successful! Payment ID: " + response.razorpay_payment_id;
+                },
+                "prefill": {
+                    "name": "Demo User",
+                    "email": "demo.user@example.com",
+                    "contact": "9999999999"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        });
+    </script>
+</body>
+</html>
